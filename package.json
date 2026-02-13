@@ -2,6 +2,7 @@
     "name": "moredocsthancode",
     "type": "module",
     "dependencies": {
+        "minecraft-protocol": "^1.64.0",
         "mineflayer": "^4.35.0"
     }
 }

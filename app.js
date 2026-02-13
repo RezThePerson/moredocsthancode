@@ -1,4 +1,5 @@
-const mineflayer = require("mineflayer");
+import mineflayer from "mineflayer";
+import vec3 from "vec3";
 
 const bot = mineflayer.createBot({
     host: "localhost",
@@ -8,29 +9,16 @@ const bot = mineflayer.createBot({
 });
 
 bot.on("spawn", () => {
+    bot.chat(`/login helpme`);
+
     bot.on("chat", (username, message) => {
-        if (message === "attack me") attackPlayer(username);
-        else if (message === "attack") attackEntity();
+        if (message === "idk") idk();
     });
 });
 
-function attackPlayer(username) {
-    const player = bot.players[username];
-    bot.chat(`Attacking ${player.entity.onGround}`);
-    if (!player || !player.entity) {
-        bot.chat("I can't see you");
-    } else {
-        bot.chat(`Attacking ${player.username}`);
-        bot.attack(player.entity);
-    }
-}
-
-function attackEntity() {
-    const entity = bot.nearestEntity();
-    if (!entity) {
-        bot.chat("No nearby entities");
-    } else {
-        bot.chat(`Attacking ${entity.name ?? entity.username}`);
-        bot.attack(entity);
-    }
+async function idk() {
+    await bot.placeBlock(
+        bot.blockAt(new vec3(10, -60, 10)),
+        new vec3(0, 1, 0),
+    );
 }

@@ -1,4 +1,4 @@
-const mineflayer = require("mineflayer");
+import mineflayer from "mineflayer";
 
 const bot = mineflayer.createBot({
     host: "localhost",
