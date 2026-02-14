@@ -8,37 +8,21 @@ const bot = mc.createClient({
     auth: "offline",
 });
 
-let dead = false;
-
-bot.on("packet", (data, meta) => {
-    // Detect death
-    if (meta.name === "update_health") {
-        if (data.health <= 0 && !dead) {
-            dead = true;
-            respawn();
-        }
-    }
-
-    // ONLY confirm teleports sent by server
-    if (meta.name === "player_position_and_look") {
-        bot.write("teleport_confirm", {
-            teleportId: data.teleportId,
-        });
-    }
+bot.on("login", () => {
+    tp();
 });
 
-function respawn() {
-    bot.write("respawn", {
-        dimension: "minecraft:overworld",
-        dimensionType: "minecraft:overworld",
-        worldName: "minecraft:overworld",
-        hashedSeed: [0, 0],
-        gamemode: 0,
-        previousGamemode: -1,
-        isDebug: false,
-        isFlat: false,
-        copyMetadata: false,
+function tp() {
+    bot.write("position", {
+        x: 0,
+        y: -59,
+        z: 0,
+        yaw: 0,
+        pitch: 0,
+        onGround: false,
+        time: 0,
+        flags: { onGround: false, hasHorizontalCollision: false },
     });
 
-    dead = false;
+    console.log("Teleported to Y=-50");
 }
