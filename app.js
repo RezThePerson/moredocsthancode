@@ -33,5 +33,9 @@ bot.on("login", (packet) => {
 });
 
 function tick() {
-    moveTowardsTarget();
+    let inrange = moveTowardsTarget() < 3 ? true : false;
+
+    if (inrange) {
+        bot.chat("I'm close to the target!");
+    }
 }
